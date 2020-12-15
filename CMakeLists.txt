@@ -18,7 +18,7 @@ set(HEADER_FILES ${CMAKE_SOURCE_DIR}/EyeCenter.h ${CMAKE_SOURCE_DIR}/EyeCorner.h
 # OpenCV library
 set(OpenCV_LIBS "/usr/local/lib/opencv4")
 find_package(OpenCV REQUIRED COMPONENTS core imgproc highgui objdetect videoio)
-TARGET_LINK_LIBRARIES(eyeTracking ${OpenCV_LIBS})
+target_link_libraries(eyeTracking ${OpenCV_LIBS})
 
-ADD_EXECUTABLE(eyeTracking ${CMAKE_SOURCE_DIR}/main.cpp)
+add_executable(eyeTracking ${CMAKE_SOURCE_DIR}/main.cpp)
 
