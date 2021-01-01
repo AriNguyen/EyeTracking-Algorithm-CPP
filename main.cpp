@@ -9,9 +9,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/videoio/videoio_c.h>
 
-#include "constants.h"
-// #include "EyeCenter.h"
-// #include "EyeCorner.h"
+#include "helper/helper.hpp"
 
 // Function Headers
 void findEyes(cv::Mat frame_gray, cv::Rect face);
