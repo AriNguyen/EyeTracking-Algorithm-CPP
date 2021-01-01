@@ -1,5 +1,7 @@
 # Eye Tracking with OpenCV C++
 
+## Install OpenCV
+
 ## Run the program
 In the CMakeLists, you would need to change the path of OpenCv
 ```cmake 
@@ -33,6 +35,6 @@ This is the [link]() that implement multithreading in OpenCV C++
 
 Use [finite difference](https://www.math.ubc.ca/~pwalls/math-python/differentiation/differentiation/) methods, a numerical technique, to calculate differential equations. It finds approximation but easier to execute
 
-
- 
+## References 
+- [Timm, Fabian, and Erhardt Barth. "Accurate eye centre localisation by means of gradients." Visapp 11 (2011): 125-130.](https://www.researchgate.net/publication/221415814_Accurate_Eye_Centre_Localisation_by_Means_of_Gradients)
 
