@@ -1,103 +1,45 @@
+/**
+ * @file main.cpp
+ * @brief Implement Pupil tracking on images
+ * @author Ari Nguyen
+ */
 #include <iostream>
-#include <queue>
-#include <thread>
-#include <math.h>
-#include <stdio.h>
+#include <string>
 
-#include <opencv2/objdetect/objdetect.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/videoio/videoio_c.h>
+#include <boost/program_options.hpp>
+// #include "helper/helper.hpp"
 
-#include "helper/helper.hpp"
+using std::cerr;
+using std::cout;
+using std::endl;
+using std::exception;
+namespace po = boost::program_options;
 
-// Function Headers
-void findEyes(cv::Mat frame_gray, cv::Rect face);
-cv::Mat findSkin(cv::Mat &frame);
-void detectAndDisplay(cv::Mat frame);
+// Main function: acts as a pipeline
+int main(int argc, const char **argv) {
+    std::string img_path;
 
-// Global Variables
-cv::String face_cascade_name = "../res/haarcascade_frontalface_alt.xml";
-cv::String eyes_cascade_name = "../res/haarcascade_eye_tree_eyeglasses.xml";
-cv::CascadeClassifier face_cascade;
-cv::CascadeClassifier eyes_cascade;
-std::string main_window_name = "Capture - Face Detection";
-std::string face_window_name = "Capture - Face";
-cv::RNG rng(12345);
-cv::Mat debugImage;
-cv::Mat skinCrCbHist = cv::Mat::zeros(cv::Size(256, 256), CV_8UC1);
-
-
-// Function Main
-int main(int argc, const char** argv) {
-    int deviceId = 0; // 0 = open default camera
-    cv::Mat frame;
-
-    // Load the cascades
-    if (!face_cascade.load(face_cascade_name)) {
-        std::cerr << "--(!)Error loading face cascade\n";
-        return -1;
-    }
-    if (!eyes_cascade.load(eyes_cascade_name)) {
-        std::cerr << "--(!)Error loading eyes cascade\n";
-        return -1;
+    // Parse arguments
+    try {
+        po::options_description desc("Allowed options");
+        desc.add_options()
+            ("-f", po::value<std::string>(&img_path));
+        po::variables_map vm;
+        po::store(po::parse_command_line(argc, argv, desc), vm);
+        po::notify(vm);
+        cerr << img_path << endl;
+    } catch (exception& e) {
+        cerr << "error: " << e.what() << endl;
+        return 1;
+    } catch (...) {
+        cerr << "Exception of unknown type!\n";
+        return 1;
     }
 
-    // Initialize video capture
-    cv::VideoCapture capture(0);
-    double fps = capture.get(CV_CAP_PROP_FPS);
-    if (!capture.isOpened()) { // check if succeeded
-        std::cerr << "ERROR! Unable to open camera\n";
-        return -1;
-    }
-    
-    // loop over frames from video stream
-    while (true) {
-        // wait for new frame from camera and store into 'frame'
-        capture.read(frame);
-        if (frame.empty()) { // check if succedded
-            std::cerr << "ERROR! Blank frame grabbed\n";
-            break;
-        }
-
-        // Apply Cascade classifier to the frame
-        detectAndDisplay(frame);
-
-        std::cerr << "Frame per second (FPS): " << fps << std::endl;
-
-        if (cv::waitKey(10) == 27)
-            break; // escape
-    }
+    //  
     
     return 0;
 }
 
 
-//
-void findEyes(cv::Mat frame_gray, cv::Rect face) {
-    cv::Mat faceROI = frame_gray(face);
-}
 
-cv::Mat findSkin(cv::Mat &frame) {
-
-}
-
-// detect eyes and pulpil region, then display to the frame
-void detectAndDisplay(cv::Mat frame) {
-    std::vector<cv::Rect> faces;
-
-    std::vector<cv::Mat> rgbChannels(3);
-    cv::split(frame, rgbChannels);
-    cv::Mat frame_gray = rgbChannels[2];
-
-    // Detect faces
-    face_cascade.detectMultiScale(frame_gray, faces);
-
-    for (size_t i = 0; i < faces.size(); i++) {
-        cv::rectangle(debugImage, faces[i], 1234);
-    }
-
-    // if (faces.size > 0) 
-    //     findEyes(frame_gray, faces[0]);
-    cv::imshow("Capture - Face detection", frame);
-}
