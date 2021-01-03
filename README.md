@@ -39,10 +39,10 @@ This is the [link]() that implement multithreading in OpenCV C++
 (BioID database)[https://www.bioid.com/facedb/] for eyec entre 
 
 ### Normalize vector
-![alt text](img/unit_vector.png)
+![alt text](public_img/unit_vector.png)
 
 ### Calculate Derivative 
-![alt text](img/derivative_finite_difference.png)
+![alt text](public_img/derivative_finite_difference.png)
 
 Use [finite difference](https://www.math.ubc.ca/~pwalls/math-python/differentiation/differentiation/) methods, a numerical technique, to calculate differential equations. It finds approximation but easier to execute
 
