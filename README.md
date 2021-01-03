@@ -1,8 +1,17 @@
 # Eye Tracking with OpenCV C++
+Status: ongoing
+Development: on macOS
 
-## Install OpenCV
+An OpenCV project on traking eye gazing via webcam
+1. Detect faces
+2. Detect eyes
+3. Detect pupils
+4. Track pupils' movement
 
-## Run the program
+## Install OpenCV on macOS
+https://www.learnopencv.com/install-opencv-4-on-macos/
+
+## Compile the program
 In the CMakeLists, you would need to change the path of OpenCv
 ```cmake 
 # in CMakeLists.txt
@@ -26,6 +35,8 @@ Initially, there were 12 frame per seconds. Let's try to speed up the program us
 This is the [link]() that implement multithreading in OpenCV C++  
 
 ## Explaining The Algorithms 
+### Database
+(BioID database)[https://www.bioid.com/facedb/] for eyec entre 
 
 ### Normalize vector
 ![alt text](img/unit_vector.png)
