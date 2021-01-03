@@ -6,8 +6,12 @@
  */
 #pragma once
 
-#include "constants.hpp"
-#include "utils.hpp"
-#include "EyeCenter.hpp"
-#include "EyeCorner.hpp"
-#include "VideoStream.hpp"
+// #include "constants.hpp"
+// #include "utils.hpp"
+// #include "EyeCenter.hpp"
+// #include "EyeCorner.hpp"
+// #include "VideoStream.hpp"
+
+#include <opencv2/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
