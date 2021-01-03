@@ -13,12 +13,22 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
 
 #headers
-set(HEADER_FILES ${CMAKE_SOURCE_DIR}/EyeCenter.h ${CMAKE_SOURCE_DIR}/EyeCorner.h ${CMAKE_SOURCE_DIR}/utils.h ${CMAKE_SOURCE_DIR}/constants.h)
+set(HEADER_FILES 
+    helper/helper.hpp
+)
 
 # OpenCV library
 set(OpenCV_LIBS "/usr/local/lib/opencv4")
 find_package(OpenCV REQUIRED COMPONENTS core imgproc highgui objdetect videoio)
-target_link_libraries(eyeTrackingAlgorithm ${OpenCV_LIBS})
 
-add_executable(eyeTrackingAlgorithm ${CMAKE_SOURCE_DIR}/main.cpp)
+#Boost library
+set(Boost_USE_STATIC_LIBS OFF) 
+set(Boost_USE_MULTITHREADED ON)  
+set(Boost_USE_STATIC_RUNTIME OFF) 
+find_package(Boost 1.45.0 COMPONENTS program_options)
 
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS}) 
+    add_executable(eyeTrackingAlgorithm ${CMAKE_SOURCE_DIR}/main.cpp)
+    target_link_libraries(eyeTrackingAlgorithm ${OpenCV_LIBS} ${Boost_LIBRARIES})
+endif()
